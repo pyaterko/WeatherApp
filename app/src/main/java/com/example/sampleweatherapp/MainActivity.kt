@@ -7,12 +7,14 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.sampleweatherapp.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,25 +35,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        requestPermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-        if (Build.VERSION.SDK_INT >= 33) {
-            requestNotificationPermission()
-        }
-    }
+        checkPermissions()
 
-    @SuppressLint("MissingPermission")
-    override fun onResume() {
-        super.onResume()
-        geoService.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.myLooper()
-        )
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        geoService.removeLocationUpdates(locationCallback)
     }
 
     //--------------------location_code-----------------------
@@ -73,46 +58,63 @@ class MainActivity : AppCompatActivity() {
                 location = loc
 
             }
+            Log.d("initLocationCallback","$location")
             // currentLocation?.let { location = it }
         }
     }
     //--------------------location_code-----------------------
 
     //--------------------request permission-----------------------
+    private fun checkPermissions() {
+        if (!Manifest.permission.ACCESS_FINE_LOCATION.checkPermission(this)) {
+            DialogManager.showDialogForRationaleRequestLocationPermission(this) {
+                requestPermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
+            }
+        }
+        if (Build.VERSION.SDK_INT >= 33) {
+            requestNotificationPermission()
+        }
+    }
 
+    @SuppressLint("MissingPermission")
     private fun requestPermissionLauncher() =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { isGranted ->
             if (isGranted.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false)) {
                 requestBackgroundLocationPermission()
+                geoService.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback,
+                    Looper.myLooper()
+                )
+            thread {
+            Thread.sleep(15000)
+                    geoService.removeLocationUpdates(locationCallback)
+            }
             }
         }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestNotificationPermission() {
-        if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-            DialogManager.showNotificationPermissionRationale(this) {
+        if (!Manifest.permission.POST_NOTIFICATIONS.checkPermission(this)){
+            if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                DialogManager.showRequestNotificationPermissionRationale(this) {
+                    requestPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+                }
+            } else {
                 requestPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
             }
-        } else {
-            requestPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
         }
     }
 
     private fun requestBackgroundLocationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (!Manifest.permission.ACCESS_BACKGROUND_LOCATION.checkPermission()) {
-                DialogManager.showDialogLocationPermission(this) {
+            if (!Manifest.permission.ACCESS_BACKGROUND_LOCATION.checkPermission(this)) {
+                DialogManager.showDialogBackgroundLocationPermission(this) {
                     requestPermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION))
                 }
             }
         }
     }
 
-    private fun String.checkPermission(): Boolean {
-        return when (PackageManager.PERMISSION_GRANTED) {
-            ContextCompat.checkSelfPermission(this@MainActivity, this) -> true
-            else -> false
-        }
-    }
     //--------------------request permission-----------------------
 }

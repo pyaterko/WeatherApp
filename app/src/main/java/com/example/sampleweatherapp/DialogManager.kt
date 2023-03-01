@@ -1,14 +1,19 @@
 package com.example.sampleweatherapp
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
+import android.view.LayoutInflater
+import com.example.sampleweatherapp.databinding.DialogForRequestLocationPermissionRationaleBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 object DialogManager {
 
-    fun showNotificationPermissionRationale(
+    fun showRequestNotificationPermissionRationale(
         context: Context,
         onClickPositiveButton: () -> Unit,
     ) {
@@ -29,7 +34,7 @@ object DialogManager {
     }
 
 
-    fun showDialogLocationPermission(context: Context, onClickPositiveButton: () -> Unit) {
+    fun showDialogBackgroundLocationPermission(context: Context, onClickPositiveButton: () -> Unit) {
         val builder = AlertDialog.Builder(context)
         val dialog = builder.create()
         with(dialog) {
@@ -41,6 +46,43 @@ object DialogManager {
             show()
         }
     }
+    fun showDialogForRationaleRequestLocationPermission(
+        context: Context,
+        onClickPositiveButton: () -> Unit,
+    ) {
+        val builder = AlertDialog.Builder(context)
+        val binding =
+            DialogForRequestLocationPermissionRationaleBinding.inflate(
+                LayoutInflater.from(context),
+                null,
+                false
+            )
 
+        builder
+
+            .setView(binding.root)
+        val dialog = builder.create()
+        binding.apply {
+            setDataForDialogForRationaleRequestLocationPermission(
+                onClickPositiveButton,
+                dialog
+            )
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+    @SuppressLint("SetTextI18n")
+    private fun DialogForRequestLocationPermissionRationaleBinding.setDataForDialogForRationaleRequestLocationPermission(
+        onClickPositiveButton: () -> Unit,
+        dialog: AlertDialog,
+    ) {
+        buttonYes.setOnClickListener {
+            onClickPositiveButton()
+            dialog.dismiss()
+        }
+        buttonNo.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
 }
 

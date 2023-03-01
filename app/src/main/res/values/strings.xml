@@ -9,6 +9,7 @@
     //Dialogs
     <string name="location_permission_needed">Location Permission Needed</string>
     <string name="this_app_needs_the_Location_permission">This app needs the Background Location Permission , please accept to use Background location functionality</string>
+    <string name="this_the_Location_permission">This app needs the  Location Permission , please accept to use  location functionality</string>
     <string name="ok">OK</string>
     <string name="no">NO</string>
     <string name="notification_permission">Notification Permission</string>
