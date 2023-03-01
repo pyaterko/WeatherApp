@@ -10,7 +10,41 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    
+    <style name="TextViewStyleDefault">
+        <item name="android:textColor">@color/default_color</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextViewStyleDefaultEasy">
+        <item name="android:textColor">@color/default_color</item>
+        <item name="fontFamily">sans-serif-black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextViewStyleValue">
+        <item name="android:textColor">@color/default_color</item>
+        <item name="fontFamily">cursive</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginStart">8dp</item>
+    </style>
+
+    <style name="StyleDefaultDelimiter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@drawable/bg_swiper</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 </resources>
+
+
+
+
