@@ -5,4 +5,13 @@
     <string name="image_weather">image weather</string>
     <string name="min">min</string>
     <string name="max">max</string>
+
+    //Dialogs
+    <string name="location_permission_needed">Location Permission Needed</string>
+    <string name="this_app_needs_the_Location_permission">This app needs the Background Location Permission , please accept to use Background location functionality</string>
+    <string name="ok">OK</string>
+    <string name="no">NO</string>
+    <string name="notification_permission">Notification Permission</string>
+    <string name="to_show_notification">Notification permission is required, to show notification</string>
+
 </resources>
