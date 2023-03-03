@@ -1,4 +1,4 @@
-package com.example.sampleweatherapp
+package com.example.sampleweatherapp.untils
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.LayoutInflater
+import com.example.sampleweatherapp.R
 import com.example.sampleweatherapp.databinding.DialogForRequestLocationPermissionRationaleBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 

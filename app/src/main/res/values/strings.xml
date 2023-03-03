@@ -14,5 +14,8 @@
     <string name="no">NO</string>
     <string name="notification_permission">Notification Permission</string>
     <string name="to_show_notification">Notification permission is required, to show notification</string>
+    <string name="humidity_">%</string>
+    <string name="temp_">°</string>
+    <string name="speed_w">m/c</string>
 
 </resources>
