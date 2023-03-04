@@ -1,7 +1,7 @@
 package com.example.sampleweatherapp.model.api
 
 import com.example.sampleweatherapp.BuildConfig
-import com.example.sampleweatherapp.model.entities.WeatherData
+import com.example.sampleweatherapp.model.api.models.WeatherData
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

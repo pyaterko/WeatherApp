@@ -1,4 +1,4 @@
-package com.example.sampleweatherapp.model.entities
+package com.example.sampleweatherapp.model.api.models
 
 data class WeatherData(
     val alerts : List<Alert>,

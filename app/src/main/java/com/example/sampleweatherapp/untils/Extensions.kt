@@ -3,11 +3,13 @@ package com.example.sampleweatherapp.untils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.icu.util.Calendar
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.example.sampleweatherapp.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,7 +17,7 @@ import java.util.*
 fun ImageView.setIcon(icon: String) {
     Glide.with(this.context)
         .load("http://openweathermap.org/img/wn/$icon@2x.png")
-        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .placeholder(R.drawable.baseline_wb_sunny_24)
         .error(R.drawable.baseline_wb_twilight_24)
         .into(this)

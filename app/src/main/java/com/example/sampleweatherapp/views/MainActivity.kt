@@ -15,9 +15,9 @@ import com.example.sampleweatherapp.databinding.ActivityMainBinding
 import com.example.sampleweatherapp.databinding.ItemHorizontalBinding
 import com.example.sampleweatherapp.databinding.ItemVerticalBinding
 import com.example.sampleweatherapp.untils.getDateFormat
-import com.example.sampleweatherapp.model.entities.Daily
-import com.example.sampleweatherapp.model.entities.Hourly
-import com.example.sampleweatherapp.model.entities.WeatherData
+import com.example.sampleweatherapp.model.api.models.Daily
+import com.example.sampleweatherapp.model.api.models.Hourly
+import com.example.sampleweatherapp.model.api.models.WeatherData
 import com.example.sampleweatherapp.presenters.MainPresenter
 import com.example.sampleweatherapp.untils.DialogManager
 import com.example.sampleweatherapp.untils.setIcon
@@ -154,6 +154,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             listeners { }
         }
 
+    @SuppressLint("SetTextI18n")
     private fun getDailyAdapter() =
         simpleAdapter<Daily, ItemVerticalBinding> {
             areItemsSame = { oldItem, newItem -> oldItem == newItem }
@@ -161,6 +162,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                 tvDay.text = it.dt.getDateFormat(dateFormatter)
                 tvMax.text = it.temp.max.toInt().toString()
                 tvMin.text = it.temp.min.toInt().toString()
+                tvAirHumidityValue.text=it.humidity.toString() + getString(R.string.humidity_)
                 ivWeather.setIcon(it.weather[0].icon)
             }
             listeners { }

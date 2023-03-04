@@ -1,8 +1,8 @@
 package com.example.sampleweatherapp.views
 
-import com.example.sampleweatherapp.model.entities.Daily
-import com.example.sampleweatherapp.model.entities.Hourly
-import com.example.sampleweatherapp.model.entities.WeatherData
+import com.example.sampleweatherapp.model.api.models.Daily
+import com.example.sampleweatherapp.model.api.models.Hourly
+import com.example.sampleweatherapp.model.api.models.WeatherData
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
