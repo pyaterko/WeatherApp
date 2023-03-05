@@ -17,5 +17,6 @@
     <string name="humidity_">%</string>
     <string name="temp_">°</string>
     <string name="speed_w">m/c</string>
+    <string name="location">Location</string>
 
 </resources>

@@ -22,8 +22,6 @@ android {
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
         def weatherApiKey  = properties.getProperty("weather_api_key", "")
         it.buildConfigField "String", "WEATHER_API_KEY", weatherApiKey
-        def geoCodeApiKey  = properties.getProperty("geocode_api_key", "")
-        it.buildConfigField "String", "GEOCODE_API_KEY", geoCodeApiKey
     }
 
 

@@ -9,6 +9,6 @@ private const val ITEM_DB_ID = 1
 data class WeatherDataDbModel(
     @PrimaryKey
     val id: Int = ITEM_DB_ID,
-    val name: String,
+    val name: String?,
     val data: String,
 )

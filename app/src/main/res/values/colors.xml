@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     //castom
     <color name="default_color">#767474</color>
+    <color name="search_color">#F1F1F1</color>
 </resources>

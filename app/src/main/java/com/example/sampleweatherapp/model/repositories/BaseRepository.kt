@@ -1,5 +1,6 @@
 package com.example.sampleweatherapp.model.repositories
 
+import android.util.Log
 import com.example.sampleweatherapp.App
 import com.example.sampleweatherapp.model.api.ApiProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,8 +15,15 @@ abstract class BaseRepository<T : Any>(val api: ApiProvider) {
     protected val database by lazy { App.database }
 
     protected fun roomTransaction(transaction: () -> T) =
-         Observable.fromCallable { transaction() }
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe{dataEmitter.onNext(it)}
+        Observable.fromCallable { transaction() }
+            .subscribeOn(Schedulers.io())
+            .onErrorResumeNext {
+                Log.d("onErrorResume", it.message.toString())
+                Observable.fromCallable { transaction() }
+                    .subscribeOn(Schedulers.io())
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                dataEmitter.onNext(it)
+            }
 }

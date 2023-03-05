@@ -13,7 +13,6 @@ class MainPresenter : BasePresenter<MainView>() {
     @SuppressLint("CheckResult")
     override fun enable() {
         response.dataEmitter.subscribe { responce ->
-            Log.d("MainPresenter",System.currentTimeMillis().toString())
             viewState.displayLocation(responce.cityName)
             viewState.displayCurrentData(responce.weatherData)
             viewState.displayHourlyData(responce.weatherData.hourly)

@@ -2,6 +2,7 @@ package com.example.sampleweatherapp.views
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -10,26 +11,24 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import com.elveum.elementadapter.simpleAdapter
 import com.example.sampleweatherapp.R
-import com.example.sampleweatherapp.untils.checkPermission
 import com.example.sampleweatherapp.databinding.ActivityMainBinding
 import com.example.sampleweatherapp.databinding.ItemHorizontalBinding
 import com.example.sampleweatherapp.databinding.ItemVerticalBinding
-import com.example.sampleweatherapp.untils.getDateFormat
 import com.example.sampleweatherapp.model.api.models.Daily
 import com.example.sampleweatherapp.model.api.models.Hourly
 import com.example.sampleweatherapp.model.api.models.WeatherData
 import com.example.sampleweatherapp.presenters.MainPresenter
-import com.example.sampleweatherapp.untils.DialogManager
-import com.example.sampleweatherapp.untils.setIcon
+import com.example.sampleweatherapp.untils.*
 import com.google.android.gms.location.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import kotlin.concurrent.thread
 
+
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     @Suppress("ktPropBy")
-    private val mainPresenter by moxyPresenter { MainPresenter() }
+    private val presenter by moxyPresenter { MainPresenter() }
 
 
     private var interval = 20000L
@@ -42,8 +41,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val requestPermissionLauncher by lazy {
         requestPermissionLauncher()
     }
-    private val hourlyAdapter= getHourlyAdapter()
-    private val dailyAdapter= getDailyAdapter()
+    private val hourlyAdapter = getHourlyAdapter()
+    private val dailyAdapter = getDailyAdapter()
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -52,10 +51,28 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         checkPermissions()
-        initGeoService()
-        mainPresenter.enable()
-        binding.rvMainHorizontal.adapter=hourlyAdapter
-        binding.rvMainVertical.adapter=dailyAdapter
+        presenter.enable()
+        binding.rvMainHorizontal.adapter = hourlyAdapter
+        binding.rvMainVertical.adapter = dailyAdapter
+        binding.btFilled.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
+            finish()
+        }
+        binding.btSettings.setOnClickListener {
+
+        }
+        if (intent.hasExtra(COORDINATES)) {
+            val coordinates = intent.extras?.getBundle(COORDINATES)
+            val lat = coordinates?.getString(LAT)
+            val lon = coordinates?.getString(LON)
+            if (lat != null && lon != null) {
+                presenter.refresh(lat, lon)
+            }
+        } else {
+            initGeoService()
+        }
     }
 
 
@@ -75,7 +92,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             super.onLocationResult(locationResult)
             val currentLocation = locationResult.lastLocation
             currentLocation?.let { location = it }
-            mainPresenter.refresh(location.latitude.toString(), location.longitude.toString())
+            presenter.refresh(location.latitude.toString(), location.longitude.toString())
         }
     }
 
@@ -108,14 +125,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
     }
 
-
     private fun requestPermissionLauncher() =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { isGranted ->
             if (isGranted.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false)) {
                 initGeoService()
             }
         }
-
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestNotificationPermission() {
@@ -162,14 +177,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                 tvDay.text = it.dt.getDateFormat(dateFormatter)
                 tvMax.text = it.temp.max.toInt().toString()
                 tvMin.text = it.temp.min.toInt().toString()
-                tvAirHumidityValue.text=it.humidity.toString() + getString(R.string.humidity_)
+                tvAirHumidityValue.text = it.humidity.toString() + getString(R.string.humidity_)
                 ivWeather.setIcon(it.weather[0].icon)
             }
             listeners { }
         }
     //--------------------moxy code-----------------------
 
-    override fun displayLocation(value: String) {
+    override fun displayLocation(value: String?) {
         binding.tvCityName.text = value
     }
 
@@ -178,14 +193,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         tvDate.text = data.current.dt.getDateFormat(dayFormatter)
         ivWeather.setIcon(data.current.weather[0].icon)
         tvTemperature.text = data.current.temp.toInt().toString()
-        tvClarity.text=data.current.weather[0].description
-        tvMinValue.text=data.daily[0].temp.min.toInt().toString()+ getString(R.string.temp_)
-        tvMaxValue.text=data.daily[0].temp.max.toInt().toString()+ getString(R.string.temp_)
-        tvAirHumidityValue.text=data.daily[0].humidity.toString()+ getString(R.string.humidity_)
-        tvWindSpeedValue.text=data.daily[0].wind_speed.toString()+getString(R.string.speed_w)
-        tvPressureValue.text=data.daily[0].pressure.toString()
-        tvSunriseValue.text=data.daily[0].sunrise.getDateFormat(timeFormatter)
-        tvSunsetValue.text=data.daily[0].sunset.getDateFormat(timeFormatter)
+        tvClarity.text = data.current.weather[0].description
+        tvMinValue.text = data.daily[0].temp.min.toInt().toString() + getString(R.string.temp_)
+        tvMaxValue.text = data.daily[0].temp.max.toInt().toString() + getString(R.string.temp_)
+        tvAirHumidityValue.text = data.daily[0].humidity.toString() + getString(R.string.humidity_)
+        tvWindSpeedValue.text = data.daily[0].wind_speed.toString() + getString(R.string.speed_w)
+        tvPressureValue.text = data.daily[0].pressure.toString()
+        tvSunriseValue.text = data.daily[0].sunrise.getDateFormat(timeFormatter)
+        tvSunsetValue.text = data.daily[0].sunset.getDateFormat(timeFormatter)
     }
 
     override fun displayHourlyData(data: List<Hourly>) {
@@ -203,10 +218,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun setLoading(flag: Boolean) {
 
     }
-    companion object{
-      private  const val timeFormatter = "HH:mm"
-      private  const val dayFormatter = "dd:MMMM"
-      private  const val dateFormatter = "dd EEEE"
+
+    companion object {
+        private const val timeFormatter = "HH:mm"
+        private const val dayFormatter = "dd:MMMM"
+        private const val dateFormatter = "dd EEEE"
     }
 
 }

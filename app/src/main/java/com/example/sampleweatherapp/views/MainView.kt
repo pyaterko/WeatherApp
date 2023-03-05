@@ -8,7 +8,7 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 
 interface MainView : MvpView {
     @AddToEndSingle
-    fun displayLocation(value: String)
+    fun displayLocation(value: String?)
 
     @AddToEndSingle
     fun displayCurrentData(data: WeatherData)

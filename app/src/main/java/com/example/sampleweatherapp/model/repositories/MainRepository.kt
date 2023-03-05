@@ -10,10 +10,10 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class  MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerResponse>(api) {
+class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerResponse>(api) {
 
     private val gson = Gson()
-    private val dbAccess = database.dictionaryDao()
+    private val dbAccess = database.weatherDao()
 
     @SuppressLint("CheckResult")
     fun reloadData(lat: String, lon: String) {
@@ -21,7 +21,7 @@ class  MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRe
             api.provideWeatherApi().detWeather(lat, lon),
             api.provideGeoCodingApi().detCity(lat, lon)
         ) { weatherData, geoLoc ->
-            ServerResponse(geoLoc.name, weatherData)
+            ServerResponse(geoLoc[0].local_names?.ru, weatherData)
         }
             .subscribeOn(Schedulers.io())
             .doOnNext {
@@ -33,6 +33,7 @@ class  MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRe
                 )
             }
             .onErrorResumeNext {
+                Log.d("onErrorResumeNext",it.message.toString())
                 Observable.just(
                     ServerResponse(
                         cityName = dbAccess.getData().name,
@@ -53,8 +54,8 @@ class  MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRe
                 })
     }
 
-    class ServerResponse(
-        val cityName: String,
+    data class ServerResponse(
+        val cityName: String?,
         val weatherData: WeatherData,
         val error: Throwable? = null,
     )
