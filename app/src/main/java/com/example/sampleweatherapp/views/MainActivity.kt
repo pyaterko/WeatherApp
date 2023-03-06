@@ -57,11 +57,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         binding.btFilled.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
+            overridePendingTransition(R.anim.slide_in, android.R.anim.fade_out)
             finish()
         }
         binding.btSettings.setOnClickListener {
-
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
+            finish()
         }
         if (intent.hasExtra(COORDINATES)) {
             val coordinates = intent.extras?.getBundle(COORDINATES)
@@ -197,8 +200,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         tvMinValue.text = data.daily[0].temp.min.toInt().toString() + getString(R.string.temp_)
         tvMaxValue.text = data.daily[0].temp.max.toInt().toString() + getString(R.string.temp_)
         tvAirHumidityValue.text = data.daily[0].humidity.toString() + getString(R.string.humidity_)
-        tvWindSpeedValue.text = data.daily[0].wind_speed.toString() + getString(R.string.speed_w)
-        tvPressureValue.text = data.daily[0].pressure.toString()
+        tvWindSpeedValue.text = data.daily[0].wind_speed.toString() +" "+ getString(R.string.speed_w)
+        tvPressureValue.text = data.daily[0].pressure.toString() +" "+ getString(R.string.hpa)
         tvSunriseValue.text = data.daily[0].sunrise.getDateFormat(timeFormatter)
         tvSunsetValue.text = data.daily[0].sunset.getDateFormat(timeFormatter)
     }

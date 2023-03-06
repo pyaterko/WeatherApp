@@ -62,7 +62,7 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
     private fun exitOnBackPressed() {
         Intent(this@SearchActivity, MainActivity::class.java).apply {
             startActivity(this)
-            overridePendingTransition(R.anim.slide_in, android.R.anim.fade_in)
+            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
             finish()
         }
     }
@@ -164,7 +164,7 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
             }
             putExtra(COORDINATES, coordinates)
             startActivity(this)
-            overridePendingTransition(R.anim.slide_in, android.R.anim.fade_in)
+            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
             finish()
         }
     }

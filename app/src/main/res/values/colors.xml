@@ -10,4 +10,5 @@
     //castom
     <color name="default_color">#767474</color>
     <color name="search_color">#F1F1F1</color>
+    <color name="status_bar_color">#D0D0D0</color>
 </resources>
