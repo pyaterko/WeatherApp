@@ -3,7 +3,6 @@
     <string name="on_back">on back</string>
     <string name="settings">Settings</string>
     <string name="temperature">Temperature</string>
-    <string name="wind_speed">Wind_speed</string>
     <string name="image_weather">image weather</string>
     <string name="min">min</string>
     <string name="max">max</string>
@@ -16,12 +15,31 @@
     <string name="no">NO</string>
     <string name="notification_permission">Notification Permission</string>
     <string name="to_show_notification">Notification permission is required, to show notification</string>
+    <string name="is_gps_enabled">Do you want gps enabled</string>
+    <string name="gps_disabled">GPS disabled</string>
+
+    //settings
     <string name="humidity_">%</string>
     <string name="temp_">°</string>
-    <string name="speed_w">m/c</string>
+    <string name="temp_c">%1$c°C</string>
+    <string name="temp_f">%14s°F</string>
+    <string name="speed_ms">%1$s m/c</string>
+    <string name="speed_kmh">%1$s km/h</string>
     <string name="location">Location</string>
     <string name="provided_by">Provided by</string>
     <string name="pressure">Pressure</string>
+    <string name="pressure_hpa">%1$s hPa</string>
+    <string name="pressure_mmhg">%1$s mmhg</string>
+    <string name="feels_like">Feels like</string>
+    <string name="morn">morn</string>
+    <string name="day">day</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind_speed">Wihd speed</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="wind_direction">Wind diraction</string>
+    <string name="eve">eve</string>
+    <string name="night">night</string>
 
     <string name="c" translatable="false">\u00B0C</string>
     <string name="f_" translatable="false">\u00B0F</string>

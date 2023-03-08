@@ -8,12 +8,12 @@ import retrofit2.http.Query
 
 interface WeatherApi {
     @GET("data/2.5/onecall?")
-    fun detWeather(
+    fun getWeather(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
         @Query("exclude") exclude: String = "minutely",
         @Query("appid") appid: String = BuildConfig.WEATHER_API_KEY,
         @Query("lang") lang: String = "ru",
-        @Query("units") units: String = "metric",
+        @Query("units") units: String = "standard",
     ): Observable<WeatherData>
 }

@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 const val SAVED = 1
 const val CURRENT = 0
 
-class SearchRepository(api: ApiProvider) : BaseRepository<SearchRepository.Content>(api) {
+class SearchRepository(val api: ApiProvider) : BaseRepository<SearchRepository.Content>() {
 
     private val dbAccess = database.geoCodeDao()
 

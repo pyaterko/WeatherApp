@@ -5,23 +5,30 @@ import android.util.Log
 import com.example.sampleweatherapp.model.api.ApiProvider
 import com.example.sampleweatherapp.model.api.models.WeatherData
 import com.example.sampleweatherapp.model.database.entities.WeatherDataDbModel
+import com.example.sampleweatherapp.untils.getCityName
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 
-class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerResponse>(api) {
+class MainRepository(val api: ApiProvider) : BaseRepository<MainRepository.ServerResponse>() {
 
     private val gson = Gson()
     private val dbAccess = database.weatherDao()
+    private val lang = when (Locale.getDefault().displayLanguage) {
+        "русский" -> "ru"
+        else -> "en"
+    }
 
     @SuppressLint("CheckResult")
     fun reloadData(lat: String, lon: String) {
         Observable.zip(
-            api.provideWeatherApi().detWeather(lat, lon),
+            api.provideWeatherApi().getWeather(lat, lon, lang = lang),
             api.provideGeoCodingApi().detCity(lat, lon)
         ) { weatherData, geoLoc ->
-            ServerResponse(geoLoc[0].local_names?.ru, weatherData)
+
+            ServerResponse(geoLoc[0].getCityName(), weatherData)
         }
             .subscribeOn(Schedulers.io())
             .doOnNext {
@@ -33,7 +40,7 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
                 )
             }
             .onErrorResumeNext {
-                Log.d("onErrorResumeNext",it.message.toString())
+                Log.d("onErrorResumeNext", it.message.toString())
                 Observable.just(
                     ServerResponse(
                         cityName = dbAccess.getData().name,
@@ -53,6 +60,7 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
                     Log.d("MainRepository", it.toString())
                 })
     }
+
 
     data class ServerResponse(
         val cityName: String?,

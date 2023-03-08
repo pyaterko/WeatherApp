@@ -1,8 +1,6 @@
 package com.example.sampleweatherapp.views
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sampleweatherapp.R
 import com.example.sampleweatherapp.databinding.ActivitySettingsBinding
@@ -11,21 +9,29 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 
 class SettingsActivity : AppCompatActivity() {
 
-    private val binding: ActivitySettingsBinding by lazy {
-        ActivitySettingsBinding.inflate(layoutInflater)
-    }
+    private val binding by viewBinding(ActivitySettingsBinding::inflate)
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        with(binding){
-            toolbar.setNavigationOnClickListener { exitOnBackPressed() }
-            setOnBackPressed()
+        with(binding) {
+            toolbar.setNavigationOnClickListener {
+                @Suppress("DEPRECATION")
+                onBackPressed()
+            }
+            //      setOnBackPressed()
             setSavedSettings()
-            listOf( groupTemp,groupWindSpeed,groupPressure).forEach {
+            listOf(groupTemp, groupWindSpeed, groupPressure).forEach {
                 it.addOnButtonCheckedListener(ToggleButtonClickListener)
             }
         }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        @Suppress("DEPRECATION")
+        super.onBackPressed()
+        overridePendingTransition(R.anim.fade_in,R.anim.slide_to, )
     }
 
     override fun onDestroy() {
@@ -39,23 +45,21 @@ class SettingsActivity : AppCompatActivity() {
         groupPressure.check(SettingsHolder.pressure.checkedViewId)
     }
 
-    private fun setOnBackPressed() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    exitOnBackPressed()
-                }
-            })
-    }
+//    private fun setOnBackPressed() {
+//        onBackPressedDispatcher.addCallback(
+//            this,
+//            object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    exitOnBackPressed()
+//                }
+//            })
+//    }
 
-    private fun exitOnBackPressed() {
-        Intent(this@SettingsActivity, MainActivity::class.java).apply {
-            startActivity(this)
-            overridePendingTransition(R.anim.slide_in, android.R.anim.fade_out)
-            finish()
-        }
-    }
+//    private fun exitOnBackPressed() {
+//        onBackPressed()
+//        overridePendingTransition(R.anim.slide_in, android.R.anim.fade_out)
+//    }
+//}
 
     private object ToggleButtonClickListener : MaterialButtonToggleGroup.OnButtonCheckedListener {
         override fun onButtonChecked(
@@ -64,17 +68,17 @@ class SettingsActivity : AppCompatActivity() {
             isChecked: Boolean,
         ) {
             when (checkedId to isChecked) {
-                R.id.degree_c to true -> SettingsHolder.temp =
+                R.id.button_c to true -> SettingsHolder.temp =
                     SettingsHolder.Setting.TEMP_CELSIUS
-                R.id.degree_f to true -> SettingsHolder.temp =
+                R.id.button_f to true -> SettingsHolder.temp =
                     SettingsHolder.Setting.TEMP_FAHRENHEIT
-                R.id.degree_m_c to true -> SettingsHolder.temp =
+                R.id.degree_m_c to true -> SettingsHolder.windSpeed =
                     SettingsHolder.Setting.WIND_SPEED_MS
-                R.id.degree_km_h to true -> SettingsHolder.temp =
+                R.id.degree_km_h to true -> SettingsHolder.windSpeed =
                     SettingsHolder.Setting.WIND_SPEED_KMH
-                R.id.degree_mmhg to true -> SettingsHolder.temp =
+                R.id.degree_mmhg to true -> SettingsHolder.pressure =
                     SettingsHolder.Setting.PRESSURE_MMHG
-                R.id.degree_hpa to true -> SettingsHolder.temp =
+                R.id.degree_hpa to true -> SettingsHolder.pressure =
                     SettingsHolder.Setting.PRESSURE_HPA
             }
         }

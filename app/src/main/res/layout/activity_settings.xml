@@ -35,17 +35,11 @@
         android:text="@string/provided_by"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
-        app:layout_constraintStart_toStartOf="@+id/tv_provided_by"
-        app:layout_constraintTop_toBottomOf="@+id/tv_provided_by"
-        tools:text="TextView " />
+
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -88,8 +82,8 @@
         app:layout_constraintTop_toBottomOf="@+id/view_bg"
         app:selectionRequired="true"
         app:singleSelection="true">
-        <Button
-            android:id="@+id/degree_c"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_c"
             android:tag="C"
             android:layout_width="88dp"
             android:layout_height="48dp"
@@ -97,8 +91,8 @@
             android:textSize="20sp"
             android:text="@string/c"
             style="?attr/materialButtonOutlinedStyle"/>
-        <Button
-            android:id="@+id/degree_f"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_f"
             android:layout_width="88dp"
             android:layout_height="48dp"
             android:textStyle="bold"
@@ -130,7 +124,7 @@
         app:selectionRequired="true"
         app:singleSelection="true">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/degree_m_c"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="88dp"
@@ -140,7 +134,7 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/degree_km_h"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="88dp"
@@ -173,7 +167,7 @@
         app:selectionRequired="true"
         app:singleSelection="true">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/degree_mmhg"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="88dp"
@@ -183,7 +177,7 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/degree_hpa"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="88dp"

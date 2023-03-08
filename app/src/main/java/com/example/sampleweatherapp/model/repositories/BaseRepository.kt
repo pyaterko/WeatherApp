@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-abstract class BaseRepository<T : Any>(val api: ApiProvider) {
+abstract class BaseRepository<T : Any> {
 
     val dataEmitter: BehaviorSubject<T> = BehaviorSubject.create()
 

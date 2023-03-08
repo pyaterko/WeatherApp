@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Приложение Погода</string>
+    <string name="on_back">назад</string>
+    <string name="settings">Настройки</string>
+    <string name="temperature">Температура</string>
+    <string name="wind_speed">Скорость ветра</string>
+    <string name="image_weather">изображение погоды</string>
+    <string name="min">мин</string>
+    <string name="max">макс</string>
+
+    //Dialogs
+    <string name="location_permission_needed">Требуется разрешение на местоположение</string>
+    <string name="this_app_needs_the_Location_permission">Этому приложению требуется разрешение на фоновое определение местоположения. Примите его, чтобы использовать функцию фонового определения местоположения.</string>
+    <string name="this_the_Location_permission">Этому приложению требуется разрешение на определение местоположения. Примите его, чтобы использовать функцию определения местоположения.</string>
+    <string name="ok">Да</string>
+    <string name="no">Нет</string>
+    <string name="notification_permission">Разрешение на уведомление</string>
+    <string name="to_show_notification">Требуется разрешение на уведомление, чтобы показать уведомление</string>
+    <string name="is_gps_enabled">Вы хотите включить GPS</string>
+    <string name="gps_disabled">GPS отключен</string>
+
+    //settings
+    <string name="speed_ms">%1$s м/с</string>
+    <string name="speed_kmh">%1$s км/ч/h</string>
+    <string name="location">Расположение</string>
+    <string name="provided_by">Предоставлено</string>
+    <string name="pressure">Давление</string>
+    <string name="pressure_hpa">%1$s мПа</string>
+    <string name="pressure_mmhg">%1$s мм/рс</string>
+
+    <string name="humidity_">%</string>
+    <string name="temp_">°</string>
+    <string name="temp_c">%1$c°C</string>
+    <string name="temp_f">%14s°F</string>
+
+    <string name="feels_like">Ощущается</string>
+    <string name="morn">утро</string>
+    <string name="day">день</string>
+    <string name="humidity">Влажность</string>
+    <string name="sunrise">Восход</string>
+    <string name="sunset">Закат</string>
+    <string name="wind_direction">Направление</string>
+    <string name="eve">вечер</string>
+    <string name="night">night</string>
+
+</resources>

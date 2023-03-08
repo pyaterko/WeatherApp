@@ -12,7 +12,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        SettingsHolder.onCreate( getSharedPreferences(APP_SETTINGS, MODE_PRIVATE))
         database = WeatherDatabase.getInstance(this)
+        val pref = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
+        SettingsHolder.onCreate(pref)
     }
 }

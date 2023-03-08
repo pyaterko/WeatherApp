@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elveum.elementadapter.simpleAdapter
@@ -18,12 +17,13 @@ import com.example.sampleweatherapp.untils.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Suppress("ktPropBy")
 class SearchActivity : MvpAppCompatActivity(), SearchView {
 
-    private val binding by lazy { ActivitySearchBinding.inflate(layoutInflater) }
+    private val binding by viewBinding(ActivitySearchBinding::inflate)
     private val citySearchAdapter = getCitySearchAdapter()
     private val favoriteCityAdapter = getFavoriteCityAdapter()
     private val presenter by moxyPresenter { SearchPresenter() }
@@ -32,7 +32,6 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setOnBackPressed()
         presenter.enable()
         presenter.getFavoriteList()
         initRV()
@@ -48,24 +47,13 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
             }
     }
 
-    private fun setOnBackPressed() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    exitOnBackPressed()
-                }
-            })
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+    @Suppress("DEPRECATION")
+        super.onBackPressed()
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_back)
     }
 
-
-    private fun exitOnBackPressed() {
-        Intent(this@SearchActivity, MainActivity::class.java).apply {
-            startActivity(this)
-            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
-            finish()
-        }
-    }
 
 
     //------------------------init-------------------------
@@ -123,8 +111,8 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
 
                 if (item.local_names?.ru != null && item.local_names.ru.isNotEmpty()) {
                     ivFavorite.setBackgroundResource(item.isFavorite.getIconFavorite())
-                    item.local_names.ru.let { tvCityName.text = it }
-                    item.state?.let { tvState.text = it }
+                    tvCityName.text = item.getCityName()
+                    tvState.text = Locale("", item.country).displayName
                 }
 
 
@@ -143,7 +131,7 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
             bind { item ->
                 if (item.local_names?.ru != null) {
                     item.local_names.ru.let { tvCityName.text = it }
-                    item.state?.let { tvState.text = it }
+                    tvState.text = Locale("", item.country).displayName
                 }
             }
             listeners {
@@ -164,7 +152,7 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
             }
             putExtra(COORDINATES, coordinates)
             startActivity(this)
-            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
+            overridePendingTransition(R.anim.fade_in, R.anim.slide_back)
             finish()
         }
     }

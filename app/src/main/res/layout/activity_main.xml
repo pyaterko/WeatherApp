@@ -11,12 +11,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/t"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@+id/view13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <ImageButton
             android:id="@+id/bt_filled"
             android:layout_width="48dp"
@@ -69,14 +81,13 @@
 
         <ImageView
             android:id="@+id/iv_weather"
-            android:layout_width="180dp"
+            android:layout_width="150dp"
             android:layout_height="200dp"
-
             android:background="@android:color/transparent"
             android:contentDescription="@string/image_weather"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline_top"
-            app:srcCompat="@drawable/weather" />
+            tools:srcCompat="@drawable/weather" />
 
         <ImageView
             android:id="@+id/iv_sun"
@@ -104,7 +115,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:textSize="100sp"
+            android:textSize="90sp"
             app:autoSizeMaxTextSize="100sp"
             app:autoSizeMinTextSize="36sp"
             app:layout_constraintEnd_toStartOf="@+id/iv_weather"
@@ -124,9 +135,10 @@
         <TextView
             android:id="@+id/tv_min"
             style="@style/TextViewStyleDefaultEasy"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:gravity="center"
             android:text="@string/min"
             app:layout_constraintEnd_toStartOf="@+id/delimiter"
             app:layout_constraintTop_toTopOf="@+id/delimiter" />
@@ -134,17 +146,19 @@
         <TextView
             android:id="@+id/tv_max"
             style="@style/TextViewStyleDefaultEasy"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:gravity="center"
             android:text="@string/max"
             app:layout_constraintStart_toEndOf="@+id/delimiter"
             app:layout_constraintTop_toTopOf="@+id/delimiter" />
 
         <TextView
             android:id="@+id/tv_min_value"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="@+id/tv_min"
             app:layout_constraintStart_toStartOf="@+id/tv_min"
             app:layout_constraintTop_toBottomOf="@+id/tv_min"
@@ -152,8 +166,9 @@
 
         <TextView
             android:id="@+id/tv_max_value"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="@+id/tv_max"
             app:layout_constraintStart_toStartOf="@+id/tv_max"
             app:layout_constraintTop_toBottomOf="@+id/tv_max"
@@ -270,7 +285,31 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.82"
+            app:layout_constraintGuide_percent="0.69"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/view12"
+            style="@style/StyleDefaultDelimiter"
+            app:layout_constraintBottom_toTopOf="@+id/iv_weather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_filled" />
+
+        <View
+            android:id="@+id/view13"
+            style="@style/StyleDefaultDelimiter"
+            app:layout_constraintBottom_toTopOf="@+id/tv_pressure_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_weather" />
+
+        <View
+            android:id="@+id/view15"
+            style="@style/StyleDefaultDelimiter"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -279,7 +318,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.52"
+            app:layout_constraintGuide_percent="0.48"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -293,6 +332,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottomSheet"
         style="?attr/bottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -300,13 +340,14 @@
         android:background="@drawable/bg_bottom_sheet"
         android:elevation="8dp"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="120dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        app:behavior_peekHeight="196dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+     >
 
         <LinearLayout
             android:id="@+id/main_bottom_sheet_container"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="600dp"
             android:orientation="vertical">
 
             <View
@@ -329,13 +370,11 @@
 
             <View style="@style/StyleDefaultDelimiter" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_main_vertical"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fr_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_vertical" />
+                android:layout_height="match_parent"
+                tools:layout="@layout/fragment_dailylist" />
 
         </LinearLayout>
 

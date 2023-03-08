@@ -6,11 +6,6 @@ import com.example.sampleweatherapp.R
 import java.util.*
 import kotlin.math.roundToInt
 
-
-const val TEMP = "TEMP"
-const val WIND_SPEED = "WIND_SPEED"
-const val PRESSURE = "PRESSURE"
-
 object SettingsHolder {
     private lateinit var preferences: SharedPreferences
 
@@ -26,11 +21,11 @@ object SettingsHolder {
     }
 
     fun onDestroy() {
-        val editor = preferences.edit()
-        editor.putInt(TEMP, temp.prefConst)
-        editor.putInt(WIND_SPEED, windSpeed.prefConst)
-        editor.putInt(PRESSURE, pressure.prefConst)
-        editor.apply()
+        preferences.edit().apply {
+            putInt(TEMP, temp.prefConst)
+            putInt(WIND_SPEED, windSpeed.prefConst)
+            putInt(PRESSURE, pressure.prefConst)
+        }.apply()
     }
 
     private fun getSetting(@IdRes id: Int) = when (id) {
@@ -56,27 +51,27 @@ object SettingsHolder {
         @IdRes val measureUnitStringRes: Int,
         @IdRes val prefConst: Int,
     ) {
-        TEMP_FAHRENHEIT(R.id.degree_f, R.string.f_, F) {
-            override fun getValue(initValue: Double) =
-                valueToString { (initValue - 273.15) * (9 / 5) * 32 }
-        },
-        TEMP_CELSIUS(R.id.degree_c, R.string.c, C) {
+        TEMP_CELSIUS(R.id.button_c, R.string.c, C) {
             override fun getValue(initValue: Double) =
                 valueToString { initValue - 273.15 }
         },
-        WIND_SPEED_MS(R.id.degree_m_c, R.string.m_c, MS) {
+        TEMP_FAHRENHEIT(R.id.button_f, R.string.f_, F) {
+            override fun getValue(initValue: Double) =
+                valueToString { (initValue - 273.15) * (9 / 5) + 32 }
+        },
+        WIND_SPEED_MS(R.id.degree_m_c, R.string.speed_ms, MS) {
             override fun getValue(initValue: Double) =
                 valueToString { initValue }
         },
-        WIND_SPEED_KMH(R.id.degree_km_h, R.string.km_h, KMH) {
+        WIND_SPEED_KMH(R.id.degree_km_h, R.string.speed_kmh, KMH) {
             override fun getValue(initValue: Double) =
                 valueToString { initValue * 3.6 }
         },
-        PRESSURE_MMHG(R.id.degree_mmhg, R.string.mmHg, MM_HG) {
+        PRESSURE_MMHG(R.id.degree_mmhg, R.string.pressure_mmhg, MM_HG) {
             override fun getValue(initValue: Double) =
                 valueToString { initValue / 1.33322387415 }
         },
-        PRESSURE_HPA(R.id.degree_hpa, R.string.hpa, HPA) {
+        PRESSURE_HPA(R.id.degree_hpa, R.string.pressure_hpa, HPA) {
             override fun getValue(initValue: Double) =
                 valueToString { initValue }
         };

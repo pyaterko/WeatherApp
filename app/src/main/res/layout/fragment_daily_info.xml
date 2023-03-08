@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/bt_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="@string/on_back"
+            android:focusable="true"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintEnd_toStartOf="@+id/tv_current_data"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_current_data"
+            style="@style/StyleViewInfoTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_back"
+            app:layout_constraintEnd_toStartOf="@+id/tv_temp"
+            app:layout_constraintStart_toEndOf="@+id/bt_back"
+            app:layout_constraintTop_toTopOf="@+id/bt_back"
+            tools:text="Moscow" />
+
+        <TextView
+            android:id="@+id/tv_temp"
+            style="@style/StyleViewInfoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_back"
+            app:layout_constraintEnd_toStartOf="@+id/iv_weather"
+            app:layout_constraintTop_toTopOf="@+id/bt_back"
+            tools:text="22°" />
+
+        <ImageButton
+            android:id="@+id/iv_weather"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="@string/settings"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bt_back"
+            tools:src="@drawable/baseline_settings_24" />
+
+        <View
+            android:id="@+id/view3"
+            style="@style/StyleDefaultDelimiter"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/bt_back"
+            app:layout_constraintTop_toBottomOf="@+id/tv_current_data" />
+
+        <View
+            android:id="@+id/view2"
+            style="@style/StyleDefaultDelimiter"
+            android:layout_marginTop="86dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintStart_toStartOf="@+id/bt_back"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <View
+            android:id="@+id/view4"
+            style="@style/StyleDefaultDelimiter"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintStart_toStartOf="@+id/bt_back"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <View
+            android:id="@+id/view5"
+            style="@style/StyleDefaultDelimiter"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintStart_toStartOf="@+id/bt_back"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <View
+            android:id="@+id/view6"
+            style="@style/StyleDefaultDelimiter"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintStart_toStartOf="@+id/bt_back"
+            app:layout_constraintTop_toBottomOf="@+id/view5"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:id="@+id/view14"
+            style="@style/StyleDefaultDelimiterVertical"
+            app:layout_constraintBottom_toTopOf="@+id/view6"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintStart_toStartOf="@+id/bt_back"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="90dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_swiper"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/view8"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/bt_back" />
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="52dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="36dp"
+            android:background="@drawable/bg_swiper"
+            app:layout_constraintBottom_toBottomOf="@+id/view7"
+            app:layout_constraintEnd_toStartOf="@+id/view9"
+            app:layout_constraintStart_toEndOf="@+id/view7"
+            app:layout_constraintTop_toTopOf="@+id/view7" />
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="52dp"
+            android:layout_height="2dp"
+            android:background="@drawable/bg_swiper"
+            app:layout_constraintBottom_toBottomOf="@+id/view7"
+            app:layout_constraintEnd_toStartOf="@+id/view10"
+            app:layout_constraintStart_toEndOf="@+id/view8"
+            app:layout_constraintTop_toTopOf="@+id/view7" />
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="52dp"
+            android:layout_height="2dp"
+            android:background="@drawable/bg_swiper"
+            app:layout_constraintBottom_toBottomOf="@+id/view7"
+            app:layout_constraintEnd_toStartOf="@+id/view11"
+            app:layout_constraintStart_toEndOf="@+id/view9"
+            app:layout_constraintTop_toTopOf="@+id/view7" />
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="52dp"
+            android:layout_height="2dp"
+            android:background="@drawable/bg_swiper"
+            app:layout_constraintBottom_toBottomOf="@+id/view7"
+            app:layout_constraintEnd_toEndOf="@+id/iv_weather"
+            app:layout_constraintStart_toEndOf="@+id/view10"
+            app:layout_constraintTop_toTopOf="@+id/view7" />
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature"
+            app:layout_constraintBottom_toTopOf="@+id/view7"
+            app:layout_constraintEnd_toEndOf="@+id/view7"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/view7" />
+
+        <TextView
+            android:id="@+id/tv_feels_like"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/feels_like"
+            app:layout_constraintEnd_toEndOf="@+id/view7"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/view7"
+            app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+        <TextView
+            android:id="@+id/tv_temp_morn"
+            style="@style/StyleTemperature"
+            app:layout_constraintBottom_toTopOf="@+id/view8"
+            app:layout_constraintEnd_toEndOf="@+id/view8"
+            app:layout_constraintStart_toStartOf="@+id/view8"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/morn"
+            app:layout_constraintBottom_toTopOf="@+id/tv_temp_morn"
+            app:layout_constraintEnd_toEndOf="@+id/view8"
+            app:layout_constraintStart_toStartOf="@+id/view8" />
+
+        <TextView
+            android:id="@+id/tv_temp_morn_feel"
+            style="@style/StyleTemperatureFeel"
+            app:layout_constraintEnd_toEndOf="@+id/view8"
+            app:layout_constraintStart_toStartOf="@+id/view8"
+            app:layout_constraintTop_toBottomOf="@+id/view8"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/tv_temp_day_feel"
+            style="@style/StyleTemperatureFeel"
+            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintStart_toStartOf="@+id/view9"
+            app:layout_constraintTop_toBottomOf="@+id/view9"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/tv_temp_day"
+            style="@style/StyleTemperature"
+            app:layout_constraintBottom_toTopOf="@+id/view9"
+            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintStart_toStartOf="@+id/view9"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/day"
+            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintStart_toStartOf="@+id/view9"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/tv_temp_eve_feel"
+            style="@style/StyleTemperatureFeel"
+            app:layout_constraintEnd_toEndOf="@+id/view10"
+            app:layout_constraintStart_toStartOf="@+id/view10"
+            app:layout_constraintTop_toBottomOf="@+id/view10"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eve"
+            app:layout_constraintEnd_toEndOf="@+id/view10"
+            app:layout_constraintStart_toStartOf="@+id/view10"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/tv_temp_eve"
+            style="@style/StyleTemperature"
+            app:layout_constraintBottom_toTopOf="@+id/view10"
+            app:layout_constraintEnd_toEndOf="@+id/view10"
+            app:layout_constraintStart_toStartOf="@+id/view10"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/tv_temp_night_feel"
+            style="@style/StyleTemperatureFeel"
+            app:layout_constraintEnd_toEndOf="@+id/view11"
+            app:layout_constraintStart_toStartOf="@+id/view11"
+            app:layout_constraintTop_toBottomOf="@+id/view11"
+            tools:text="15" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/night"
+            app:layout_constraintEnd_toEndOf="@+id/view11"
+            app:layout_constraintStart_toStartOf="@+id/view11"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/tv_temp_night"
+            style="@style/StyleTemperature"
+            app:layout_constraintBottom_toTopOf="@+id/view11"
+            app:layout_constraintEnd_toEndOf="@+id/view11"
+            app:layout_constraintStart_toStartOf="@+id/view11"
+            tools:text="15" />
+
+        <TextView
+            android:id="@+id/humidity"
+            style="@style/StyleViewInfoValue"
+            app:layout_constraintBottom_toTopOf="@+id/view4"
+            app:layout_constraintStart_toStartOf="@+id/view4"
+            tools:text="20" />
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/StyleViewInfoTitle"
+            android:text="@string/humidity"
+            app:layout_constraintBottom_toTopOf="@+id/humidity"
+            app:layout_constraintStart_toStartOf="@+id/view4" />
+
+        <TextView
+            android:id="@+id/textView16"
+            style="@style/StyleViewInfoTitle"
+            android:text="@string/wind_speed"
+            app:layout_constraintBottom_toTopOf="@+id/wind_speed"
+            app:layout_constraintStart_toStartOf="@+id/view5" />
+
+        <TextView
+            android:id="@+id/wind_speed"
+            style="@style/StyleViewInfoValue"
+            app:layout_constraintBottom_toTopOf="@+id/view5"
+            app:layout_constraintStart_toStartOf="@+id/view5"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/StyleViewInfoTitle"
+            android:text="@string/sunrise"
+            app:layout_constraintBottom_toTopOf="@+id/tv_sunrise"
+            app:layout_constraintStart_toStartOf="@+id/view6" />
+
+        <TextView
+            android:id="@+id/tv_sunrise"
+            style="@style/StyleViewInfoValue"
+            app:layout_constraintBottom_toTopOf="@+id/view6"
+            app:layout_constraintStart_toStartOf="@+id/view6"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/textView20"
+            style="@style/StyleViewInfoTitle"
+            android:text="@string/pressure"
+            app:layout_constraintBottom_toTopOf="@+id/tv_pressure"
+            app:layout_constraintStart_toEndOf="@+id/view14" />
+
+        <TextView
+            android:id="@+id/tv_pressure"
+            style="@style/StyleViewInfoValue"
+            app:layout_constraintBottom_toTopOf="@+id/view4"
+            app:layout_constraintStart_toEndOf="@+id/view14"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/textView22"
+            style="@style/StyleViewInfoTitle"
+            android:text="@string/wind_direction"
+            app:layout_constraintBottom_toTopOf="@+id/tv_wind_direction"
+            app:layout_constraintStart_toEndOf="@+id/view14" />
+
+        <TextView
+            android:id="@+id/tv_wind_direction"
+            style="@style/StyleViewInfoValue"
+            app:layout_constraintBottom_toTopOf="@+id/view5"
+            app:layout_constraintStart_toEndOf="@+id/view14"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/textView24"
+            style="@style/StyleViewInfoTitle"
+            android:text="@string/sunset"
+            app:layout_constraintBottom_toTopOf="@+id/tv_sunset"
+            app:layout_constraintStart_toEndOf="@+id/view14" />
+
+        <TextView
+            android:id="@+id/tv_sunset"
+            style="@style/StyleViewInfoValue"
+            app:layout_constraintBottom_toTopOf="@+id/view6"
+            app:layout_constraintStart_toEndOf="@+id/view14"
+            tools:text="25" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
