@@ -14,3 +14,5 @@ const val LON = "lon"
 const val timeFormatter = "HH:mm"
 const val dayFormatter = "dd:MMMM"
 const val dateFormatter = "dd EEEE"
+
+const val DB_NAME = "weather.db"

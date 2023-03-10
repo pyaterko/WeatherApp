@@ -14,19 +14,26 @@ import com.example.sampleweatherapp.databinding.ItemSearchCityBinding
 import com.example.sampleweatherapp.model.api.models.geocod.GeoCodeItem
 import com.example.sampleweatherapp.presenters.SearchPresenter
 import com.example.sampleweatherapp.untils.*
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-@Suppress("ktPropBy")
+@AndroidEntryPoint
 class SearchActivity : MvpAppCompatActivity(), SearchView {
+
+    @Inject
+    lateinit var ptr: SearchPresenter
+
+    @Suppress("ktPropBy")
+    private val presenter by moxyPresenter { ptr }
 
     private val binding by viewBinding(ActivitySearchBinding::inflate)
     private val citySearchAdapter = getCitySearchAdapter()
     private val favoriteCityAdapter = getFavoriteCityAdapter()
-    private val presenter by moxyPresenter { SearchPresenter() }
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +56,10 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-    @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION")
         super.onBackPressed()
         overridePendingTransition(R.anim.fade_in, R.anim.slide_back)
     }
-
 
 
     //------------------------init-------------------------

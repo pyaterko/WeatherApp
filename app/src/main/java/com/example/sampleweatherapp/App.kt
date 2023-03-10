@@ -4,16 +4,14 @@ import android.app.Application
 import com.example.sampleweatherapp.model.database.WeatherDatabase
 import com.example.sampleweatherapp.untils.APP_SETTINGS
 import com.example.sampleweatherapp.untils.SettingsHolder
+import dagger.hilt.android.HiltAndroidApp
 
-class App : Application() {
-    companion object {
-        lateinit var database: WeatherDatabase
-    }
-
+@HiltAndroidApp
+class App : Application()
+{
     override fun onCreate() {
         super.onCreate()
-        database = WeatherDatabase.getInstance(this)
-        val pref = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
+       val pref = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
         SettingsHolder.onCreate(pref)
     }
 }

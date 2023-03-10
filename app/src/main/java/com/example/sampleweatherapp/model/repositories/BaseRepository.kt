@@ -12,8 +12,6 @@ abstract class BaseRepository<T : Any> {
 
     val dataEmitter: BehaviorSubject<T> = BehaviorSubject.create()
 
-    protected val database by lazy { App.database }
-
     protected fun roomTransaction(transaction: () -> T) =
         Observable.fromCallable { transaction() }
             .subscribeOn(Schedulers.io())

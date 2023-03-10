@@ -8,9 +8,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.Duration
+import javax.inject.Inject
 
 
-class ApiProvider {
+class ApiProvider @Inject constructor() {
     private val openWeatherMap: Retrofit by lazy { initApi() }
 
     private fun initApi() = Retrofit.Builder()

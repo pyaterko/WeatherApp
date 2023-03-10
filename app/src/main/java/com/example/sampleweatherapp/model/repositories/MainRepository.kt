@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.example.sampleweatherapp.model.api.ApiProvider
 import com.example.sampleweatherapp.model.api.models.WeatherData
+import com.example.sampleweatherapp.model.database.WeatherDao
 import com.example.sampleweatherapp.model.database.entities.WeatherDataDbModel
 import com.example.sampleweatherapp.untils.getCityName
 import com.google.gson.Gson
@@ -11,11 +12,14 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
-class MainRepository(val api: ApiProvider) : BaseRepository<MainRepository.ServerResponse>() {
+class MainRepository @Inject constructor(
+    val api: ApiProvider,
+    private val weatherDao:WeatherDao
+    ) : BaseRepository<MainRepository.ServerResponse>() {
 
     private val gson = Gson()
-    private val dbAccess = database.weatherDao()
     private val lang = when (Locale.getDefault().displayLanguage) {
         "русский" -> "ru"
         else -> "en"
@@ -32,7 +36,7 @@ class MainRepository(val api: ApiProvider) : BaseRepository<MainRepository.Serve
         }
             .subscribeOn(Schedulers.io())
             .doOnNext {
-                dbAccess.add(
+                weatherDao.add(
                     WeatherDataDbModel(
                         name = it.cityName,
                         data = gson.toJson(it.weatherData)
@@ -43,9 +47,9 @@ class MainRepository(val api: ApiProvider) : BaseRepository<MainRepository.Serve
                 Log.d("onErrorResumeNext", it.message.toString())
                 Observable.just(
                     ServerResponse(
-                        cityName = dbAccess.getData().name,
+                        cityName = weatherDao.getData().name,
                         weatherData = gson.fromJson(
-                            dbAccess.getData().data,
+                            weatherDao.getData().data,
                             WeatherData::class.java
                         ),
                         error = it

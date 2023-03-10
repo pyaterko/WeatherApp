@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sampleweatherapp.R
 import com.example.sampleweatherapp.databinding.ActivitySettingsBinding
+import com.example.sampleweatherapp.untils.APP_SETTINGS
 import com.example.sampleweatherapp.untils.SettingsHolder
 import com.google.android.material.button.MaterialButtonToggleGroup
 

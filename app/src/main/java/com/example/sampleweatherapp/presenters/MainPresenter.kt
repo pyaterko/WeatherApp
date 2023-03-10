@@ -1,13 +1,16 @@
 package com.example.sampleweatherapp.presenters
 
 import android.annotation.SuppressLint
-import com.example.sampleweatherapp.model.api.ApiProvider
 import com.example.sampleweatherapp.model.repositories.MainRepository
 import com.example.sampleweatherapp.views.MainView
+import moxy.InjectViewState
+import javax.inject.Inject
 
-class MainPresenter : BasePresenter<MainView>() {
+@InjectViewState
+class MainPresenter @Inject constructor(
+    private val response: MainRepository,
+) : BasePresenter<MainView>() {
 
-    private val response = MainRepository(ApiProvider())
 
     @SuppressLint("CheckResult")
     override fun enable() {

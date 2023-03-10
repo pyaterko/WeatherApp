@@ -25,15 +25,22 @@ import com.example.sampleweatherapp.presenters.MainPresenter
 import com.example.sampleweatherapp.untils.*
 import com.example.sampleweatherapp.views.fragments.DailyListFragment
 import com.google.android.gms.location.*
+import dagger.hilt.android.AndroidEntryPoint
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-
+@AndroidEntryPoint
 class MainActivity : MvpAppCompatActivity(), MainView {
 
+    @Inject
+    lateinit var ptr: MainPresenter
+
     @Suppress("ktPropBy")
-    private val presenter by moxyPresenter { MainPresenter() }
+    private val presenter by moxyPresenter { ptr }
+
 
     private var location: Location? = null
     private val geoService by lazy {
@@ -84,9 +91,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
         binding.btSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
-               intent.flags= Intent.FLAG_ACTIVITY_SINGLE_TOP
-               startActivity(intent)
-               overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_out, android.R.anim.fade_out)
 //            finish()
         }
     }
